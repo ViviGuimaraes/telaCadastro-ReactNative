@@ -1,8 +1,7 @@
 // é a própria biblioteca, sendo assim deve ser o primeiro a importar
 import React from "react";
-import { StyleSheet } from "react-native";
 
-import { ScrollView, Text,View  } from "react-native";
+import { ScrollView, Text,View, StyleSheet } from "react-native";
 
 import COLORS from "../colors/colors";
 import Input from "../componentes/input";
@@ -11,6 +10,92 @@ import Input from "../componentes/input";
 //Criacao da tela de cadastro  - COMPONENTE
 
 const Cadastro = () => {
+
+// Capitura od dados com o uso de state
+// armazena os dados digitados 
+const [ inputs, setInputs] = React.useState({
+
+  nome:'',
+  telefone: '',
+  celulae:'',
+  email:''
+
+});
+
+// funcao que vai manipular a entrada dos doaos da state 
+// no método onChangeText
+const handlerOnChange = (text, input)=>{
+
+  
+  setInputs((prevState)=>(
+
+    console.log(prevState),
+  
+    {...prevState, [input]:text}
+
+  ));
+}
+// _______________ VALIDAÇÃO DOS DADOS DE CADASTRO________________
+
+const [errors, setErrors] = React.useState({});
+
+
+//funcao que configura as mensagens de erro 
+const handlerErrors = (errorMesage, input) =>{
+
+  setErrors( (prevState)=>({...prevState, [input]:errorMesage}));
+}
+
+//funcao de validacao
+const validate = ()=>{
+
+  let validate = true;
+
+  if (!inputs.nome){
+    validate = false;
+    handlerErrors('Informe o nome do paciente.', 'nome');
+  }
+
+  if (!inputs.telefone) {
+    validate = false;
+    handlerErrors('Informe o telefone do paciente.', 'telefone');
+  }
+
+
+  if (!inputs.celular) {
+    validate = false;
+    handlerErrors('Informe o celular do paciente.', 'celular');
+  }
+
+  if (!inputs.email) {
+    validate = false;
+    handlerErrors('Informe o email do paciente.', 'email');
+  }
+
+  if (validate){
+
+    //isso é paara enviar os dados para a API quando estiver pronta
+    cadastrar();
+    console.log('CADASTROU');
+  }
+
+  console.log(errors);
+
+  const cadastrar = ()=>{
+
+    try{
+      console.log('Cadastrou');
+    }catch(error){}
+
+}
+
+
+}
+
+
+
+  
+
 
     return(
 
@@ -24,32 +109,32 @@ const Cadastro = () => {
 
             <Input label="Nome completo "
                     placeholder = "Escreva o nome completo "
-                     //iconName="ybook-outline"
-                    //    error={errors.titulo}
-                      onFocus={()=>{handlerErrors(null, 'Nome')}}
-                      onChangeText={(text)=>handlerOnChange(text, 'Nome')}/>
+                    iconName="account"
+                      error={errors.nome}
+                      onFocus={()=>{handlerErrors(null, 'nome')}}
+                      onChangeText={(text)=>handlerOnChange(text, 'nome')}/>
 
 
-                <Input label="Telefone "
+                <Input label="telefone "
                     placeholder = " DDD + número do telefone "
-                     //iconName="ybook-outline"
-                    //    error={errors.titulo}
-                      onFocus={()=>{handlerErrors(null, 'Telefone')}}
-                      onChangeText={(text)=>handlerOnChange(text, 'Telefone')}/>
+                    iconName="phone" 
+                       error={errors.telefone}
+                      onFocus={()=>{handlerErrors(null, 'telefone')}}
+                      onChangeText={(text)=>handlerOnChange(text, 'telefone')}/>
 
 
                 <Input label=" Celular "
                     placeholder = " DDD + número do Celular "
-                     //iconName="ybook-outline"
-                    //    error={errors.titulo}
+                    iconName="cellphone"
+                      error={errors.celular}
                       onFocus={()=>{handlerErrors(null, 'celular')}}
                       onChangeText={(text)=>handlerOnChange(text, 'celular')}/>
 
 
                 <Input label=" Email"
                     placeholder = " Digite seu email "
-                     //iconName="ybook-outline"
-                    //    error={errors.titulo}
+                    iconName="email"
+                     error={errors.email}
                       onFocus={()=>{handlerErrors(null, 'email')}}
                       onChangeText={(text)=>handlerOnChange(text, 'email')}/>
 
@@ -64,21 +149,21 @@ const Cadastro = () => {
 
             <Input label=" Nome do Responsável "
                     placeholder = " Digite o nome do Responsável  "
-                     //iconName="ybook-outline"
-                    //    error={errors.titulo}
+                     iconName="account-multiple"
+                    
                       onFocus={()=>{handlerErrors(null, 'NomeResponsavel')}}
                       onChangeText={(text)=>handlerOnChange(text, 'NomeResponsavel')}/>
 
             <Input label=" Telefone do Responsável "
                     placeholder = " Digite o telefone do Responsável  "
-                     //iconName="ybook-outline"
-                    //    error={errors.titulo}
+                     iconName="phone-plus"
+                   
                       onFocus={()=>{handlerErrors(null, 'TelefoneResponsavel')}}
                       onChangeText={(text)=>handlerOnChange(text, 'TelefoneResponsavel')}/>
 
 
         <Button title="CADASTRAR"
-            //   onPress={validate}
+              onPress={validate}
             />
 
             </View>

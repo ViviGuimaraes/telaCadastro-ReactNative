@@ -1,6 +1,6 @@
 import React from "react";
 import { View, Text, TextInput, StyleSheet } from "react-native";
-import { Colors } from "react-native/Libraries/NewAppScreen";
+
 
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import COLORS from "../colors/colors";
@@ -15,8 +15,9 @@ const Input =( {label, iconName, error, onFocus=()=>{}, ...props})=>{
             {/* texto que fica em cima da input  */}
         <Text style={estilos.inputLabel}>{label}</Text>
     
-            <View style={[estilos.inputContainer,{borderColor: error ? COLORS.red :COLORS.darkBlue }]}>
-
+            <View style={[estilos.inputContainer,
+                {borderColor: error ? COLORS.OrangeRed :COLORS.darkBlue }]}>
+                        
                 <Icon name={iconName} style={estilos.Icon}/>
 
                 <TextInput
@@ -66,12 +67,15 @@ const estilos = StyleSheet.create({
     },
 
     TextInput:{
-        color:COLORS.orange,
+        color:COLORS.marron,
         fontWeight:"300",
     },
 
     Icon:{
-        color:COLORS.orange,s
+        marginRight:10,
+       // marginTop: 15,
+        fontSize: 20,
+        color:COLORS.orange,
         
     }
 

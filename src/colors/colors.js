@@ -7,6 +7,7 @@ const COLORS = {
     red: '#F00',
     cinza: '#f0f1f2',
     marron: '#410e00',
+    OrangeRed: '#FF8C00'
 
 
 }
